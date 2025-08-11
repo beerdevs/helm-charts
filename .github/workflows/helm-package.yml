@@ -3,7 +3,7 @@ name: Package Helm Chart
 on:
   push:
     paths:
-      - 'helm-charts/azdo-app-helm-chart/**'
+      - 'azdo-app-helm-chart/**'
 
 jobs:
   package:
@@ -17,4 +17,4 @@ jobs:
 
       - name: Package Helm chart
         run: |
-          helm package helm-charts/azdo-app-helm-chart --destination helm-charts/
+          helm package azdo-app-helm-chart
