@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: youracrname.azurecr.io/simple-flask-app
+  repository: coda4k/azdo-app
   tag: latest
   pullPolicy: IfNotPresent
 
