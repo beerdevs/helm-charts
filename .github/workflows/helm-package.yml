@@ -18,30 +18,10 @@ jobs:
           ref: ${{ github.ref }}
           fetch-depth: 0
 
-      - name: Advanced Git Debugging
-        run: |
-          echo "Current directory contents:"
-          ls -R
-          echo "Git status:"
-          git status
-          echo "Remote info:"
-          git remote -v
-          echo "Local branches:"
-          git branch -a
-          echo "Last commit hash:"
-          git log -1 --pretty=oneline
-          
-      - name: Verify working directory
-        run: |
-          echo "Current branch is: ${{ github.ref }}"
-          git log -1
-          echo "Files in the repository:"
-          ls -R
-          
       - name: Set up Helm
         uses: azure/setup-helm@v4
 
-      - name: Package and update index
+      - name: Package charts
         run: |
           echo "CURRENT PATH:" $(pwd)
           for chart_dir in charts/*; do
@@ -49,19 +29,22 @@ jobs:
               helm package "$chart_dir"
             fi
           done
-          helm repo index . --url "https://beerdevs.github.io/helm-charts" --merge index.yaml
-          cat index.yaml
-          find ./ -name Chart.yaml -exec cat {} \;
-          echo "Current branch is: ${{ github.ref }}"
-          ls -lR
 
-      - name: Fetch existing gh-pages branch
+      - name: Prepare gh-pages branch for deployment
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git fetch origin gh-pages --depth=1 || true
-          git checkout -b gh-pages origin/gh-pages || git checkout --orphan gh-pages
+          # Checkout de gh-pages en un directorio temporal para no mezclar
+          git clone --depth 1 https://github.com/beerdevs/helm-charts.git temp-gh-pages
           
+          # Copiar los paquetes viejos y el índice
+          cp temp-gh-pages/*.tgz . 2>/dev/null || :
+          cp temp-gh-pages/index.yaml . 2>/dev/null || :
+          
+          # Actualizar el índice con los nuevos paquetes
+          helm repo index . --url "https://beerdevs.github.io/helm-charts" --merge index.yaml
+          
+          # Limpiar el directorio temporal
+          rm -rf temp-gh-pages
+                    
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
