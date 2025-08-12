@@ -18,7 +18,7 @@ jobs:
           ref: ${{ github.ref }}
           fetch-depth: 0
 
-      - name: **Advanced Git Debugging**
+      - name: Advanced Git Debugging
         run: |
           echo "Current directory contents:"
           ls -R
