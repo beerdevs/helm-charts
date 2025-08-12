@@ -29,7 +29,7 @@ jobs:
         run: |
           for chart_dir in charts/*; do
             if [ -d "$chart_dir" ]; then
-              helm package "$chart_dir"
+              helm package charts/"$chart_dir"
             fi
           done
           helm repo index . --url "https://beerdevs.github.io/helm-charts" --merge index.yaml
