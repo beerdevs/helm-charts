@@ -12,11 +12,19 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout code
+      - name: Checkout code and verify branch
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
+          fetch-depth: 0
 
+      - name: Verify working directory
+        run: |
+          echo "Current branch is: ${{ github.ref }}"
+          git log -1
+          echo "Files in the repository:"
+          ls -R
+          
       - name: Set up Helm
         uses: azure/setup-helm@v4
 
