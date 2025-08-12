@@ -3,7 +3,7 @@ name: Package Helm Chart
 on:
   push:
     paths:
-      - 'azdo-app-helm-chart/**'
+      - 'charts/**'
 
 jobs:
   package:
@@ -17,4 +17,18 @@ jobs:
 
       - name: Package Helm chart
         run: |
-          helm package azdo-app-helm-chart
+          for chart_dir in charts/*; do
+            if [ -d "$chart_dir" ]; then
+              helm package "$chart_dir"
+            fi
+          done
+
+      - name: Create or update helm index
+        run: helm repo index . --url "https://beerdevs.github.io/helm-charts"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: gh-pages
