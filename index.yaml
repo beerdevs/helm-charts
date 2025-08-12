@@ -3,7 +3,7 @@ entries:
   azdo-app:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-08-12T17:26:26.108456586Z"
+    created: "2025-08-12T17:30:54.44513114Z"
     description: Helm chart para desplegar la aplicación azdo-app
     digest: bd40fa538a22237a7a919c334046650716a644eea2c2b2880bb3ba3699af82cc
     name: azdo-app
@@ -11,4 +11,4 @@ entries:
     urls:
     - https://beerdevs.github.io/helm-charts/azdo-app-0.1.0.tgz
     version: 0.1.0
-generated: "2025-08-12T17:26:26.108169237Z"
+generated: "2025-08-12T17:30:54.444836257Z"
