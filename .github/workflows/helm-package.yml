@@ -46,6 +46,7 @@ jobs:
           cat index.yaml
           find ./ -name Chart.yaml -exec cat {} \;
           echo "Current branch is: ${{ github.ref }}"
+          find ./
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
