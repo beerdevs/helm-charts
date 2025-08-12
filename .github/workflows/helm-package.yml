@@ -18,6 +18,19 @@ jobs:
           ref: ${{ github.ref }}
           fetch-depth: 0
 
+      - name: **Advanced Git Debugging**
+        run: |
+          echo "Current directory contents:"
+          ls -R
+          echo "Git status:"
+          git status
+          echo "Remote info:"
+          git remote -v
+          echo "Local branches:"
+          git branch -a
+          echo "Last commit hash:"
+          git log -1 --pretty=oneline
+          
       - name: Verify working directory
         run: |
           echo "Current branch is: ${{ github.ref }}"
