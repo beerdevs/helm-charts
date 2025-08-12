@@ -50,6 +50,7 @@ jobs:
 
       - name: Package and update index
         run: |
+          echo "CURRENT PATH:" $(pwd)
           for chart_dir in charts/*; do
             if [ -d "$chart_dir" ]; then
               helm package "$chart_dir"
