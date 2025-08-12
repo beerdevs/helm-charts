@@ -1,6 +1,0 @@
-apiVersion: v2
-name: azdo-app
-description: Helm chart para desplegar la aplicación azdo-app
-type: application
-version: 0.1.0
-appVersion: "1.0.0"
