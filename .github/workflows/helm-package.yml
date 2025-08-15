@@ -32,18 +32,15 @@ jobs:
 
       - name: Prepare gh-pages branch for deployment
         run: |
-          # Checkout de gh-pages en un directorio temporal para no mezclar
           git clone --depth 1 https://github.com/beerdevs/helm-charts.git temp-gh-pages
           
-          # Copiar los paquetes viejos y el índice
           cp temp-gh-pages/*.tgz . 2>/dev/null || :
           cp temp-gh-pages/index.yaml . 2>/dev/null || :
           
-          # Actualizar el índice con los nuevos paquetes
           helm repo index . --url "https://beerdevs.github.io/helm-charts" --merge index.yaml
           
-          # Limpiar el directorio temporal
           rm -rf temp-gh-pages
+          rm -rf charts
                     
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
