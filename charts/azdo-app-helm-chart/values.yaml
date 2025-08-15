@@ -1,0 +1,10 @@
+replicaCount: 1
+
+image:
+  repository: coda4k/azdo-app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
