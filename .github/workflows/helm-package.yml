@@ -36,10 +36,10 @@ jobs:
           
           cp temp-gh-pages/*.tgz . 2>/dev/null || :
           cp temp-gh-pages/index.yaml . 2>/dev/null || :
-          
+          rm -rf temp-gh-pages
+
           helm repo index . --url "https://beerdevs.github.io/helm-charts" --merge index.yaml
           
-          rm -rf temp-gh-pages
           rm -rf charts
                     
       - name: Deploy to GitHub Pages
